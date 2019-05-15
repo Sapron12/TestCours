@@ -36,20 +36,18 @@ public class MainController {
         boolean currentUserDisabled = false;
 
 
-            for (String retval : id) {
-                if (uRep.findById(Long.parseLong(retval)).isPresent()) {
-                    userFromDB = uRep.findById(Long.parseLong(retval)).get();
-                    if(event.equals("Acеive/Diactive")){
-                        blockUnblock(userFromDB);
-                        if(currentUserIsBanned(userFromDB, currentUser)) currentUserDisabled=true;
-                    }
-                    else if(event.equals("Delete")){
-                        delete(userFromDB);
-                        if(currentUserIsDeleted(userFromDB, currentUser)) currentUserDisabled=true;
-                    }
-
-                    uRep.save(userFromDB);
+        for (String retval : id)
+            if (uRep.findById(Long.parseLong(retval)).isPresent()) {
+                userFromDB = uRep.findById(Long.parseLong(retval)).get();
+                if (event.equals("Acеive/Diactive")) {
+                    blockUnblock(userFromDB);
+                    if (currentUserIsBanned(userFromDB, currentUser)) currentUserDisabled = true;
+                } else if (event.equals("Delete")) {
+                    delete(userFromDB);
+                    if (currentUserIsDeleted(userFromDB, currentUser)) currentUserDisabled = true;
                 }
+
+                uRep.save(userFromDB);
             }
 
 
@@ -88,10 +86,7 @@ public class MainController {
     }
 
     private boolean currentUserIsDeleted(User userFromDB, Authentication currentUser){
-        if (currentUser.getName().equals(userFromDB.getUsername())) {
-            return true;
-        }
-        return false;
+        return currentUser.getName().equals(userFromDB.getUsername());
     }
 
     private void blockUnblock(User userFromDB) {
@@ -104,10 +99,7 @@ public class MainController {
     }
 
     private boolean currentUserIsBanned(User userFromDB, Authentication currentUser){
-        if (currentUser.getName().equals(userFromDB.getUsername())) {
-            return true;
-        }
-        return false;
+        return currentUser.getName().equals(userFromDB.getUsername());
     }
 
 }
