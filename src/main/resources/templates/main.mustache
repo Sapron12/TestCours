@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div class="container">
+
+<br>
+<br>
+    <div class="container">
+<h1  inline="text">Hello, {{currentUser}}</h1>
+<form  action="/logout" method="post">
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <input type="submit" value="Log Out" class="btn btn-dark"/>
+</form>
+    </div>
+<br>
+
+<form method="post" action="">
+    <input class="btn btn-warning" type="submit" value="Acеive/Diactive" name = "event"/>
+    <input class="btn btn-danger" type="submit" value="Delete" name = "event"/>
+    <br>
+
+
+    <br>
+    <div class="jumbotron">
+        <div class="d-flex justify-content-around"><h1>Users</h1></div>
+    <table class="table table-bordered table-hover table-sm">
+
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col"><div class="d-flex justify-content-around">#</div></th>
+            <th scope="col"><div class="d-flex justify-content-around">Name</div></th>
+            <th scope="col"><div class="d-flex justify-content-around">Email</div></th>
+            <th scope="col"><div class="d-flex justify-content-around">Is Active</div></th>
+        </tr>
+        </thead>
+        <tbody>
+        <style>
+            .big-checkbox  {width: 40px; height: 40px;}
+
+
+        </style>
+    {{#users}}
+        <tr>
+            <th scope="row"><div class="d-flex justify-content-around"><input class="big-checkbox" type="checkbox" name="id" value="{{id}}" /></div></th>
+            <td><div class="d-flex justify-content-around"><h4><span class="badge badge-outline-primary">{{username}}</span></h4></div></td>
+            <td><div class="d-flex justify-content-around"><h4><span class="badge badge-outline-primary">{{email}}</span></h4></div></td>
+            <td><div class="d-flex justify-content-around"><h5><span class="badge badge-secondary">{{block}}</span></h5></div></td>
+        </tr>
+    {{/users}}
+        </tbody>
+    </table>
+
+
+
+</div>
+</form>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</html>
