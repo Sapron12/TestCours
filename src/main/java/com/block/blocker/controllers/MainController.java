@@ -33,23 +33,9 @@ public class MainController {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         User userFromDB;
 
-        boolean currentUserDisabled = false;
-
-// кнопки + ссылки на разные контроллеры
-        for (String retval : id) {
-
-                userFromDB = uRep.findById(Long.parseLong(retval)).get();
-                if (event.equals("Acеive/Diactive")) {
-                    blockUnblock(userFromDB);
-                    if (currentUserIsBanned(userFromDB, currentUser)) currentUserDisabled = true;
-                } else if (event.equals("Delete")) {
-                    delete(userFromDB);
-                    if (currentUserIsDeleted(userFromDB, currentUser)) currentUserDisabled = true;
-                }
-
-
-
-
+        for (String oneOfChanged : id) {
+                userFromDB = uRep.findById(Long.parseLong(oneOfChanged)).get();
+            deleteAndChangeUserStatus(event, userFromDB, currentUser);
         }
 
 
@@ -59,7 +45,7 @@ public class MainController {
         model.put("users", users);
 
 
-        if (currentUserDisabled) {
+        if (!currentUser.isAuthenticated()) {
             return "redirect:/login?logout";
         }
         return "main";
@@ -101,6 +87,30 @@ public class MainController {
 
     private boolean currentUserIsBanned(User userFromDB, Authentication currentUser){
         return currentUser.getName().equals(userFromDB.getUsername());
+    }
+
+    private void blockUnblockUsers(User userFromDB, Authentication currentUser){
+        blockUnblock(userFromDB);
+        if (currentUserIsBanned(userFromDB, currentUser)){
+
+            currentUser.setAuthenticated(false);
+        }
+    }
+
+    private void deleteUsers(User userFromDB, Authentication currentUser){
+        delete(userFromDB);
+        if (currentUserIsDeleted(userFromDB, currentUser)){
+            currentUser.setAuthenticated(false);
+        }
+    }
+
+    private void deleteAndChangeUserStatus(String event, User userFromDB, Authentication currentUser){
+        if (event.equals("Actеive/Disactive")) {
+            blockUnblockUsers(userFromDB, currentUser);
+        }
+        else if (event.equals("Delete")) {
+            deleteUsers(userFromDB, currentUser);
+        }
     }
 
 }
