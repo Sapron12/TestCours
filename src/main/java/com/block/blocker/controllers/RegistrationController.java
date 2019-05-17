@@ -28,9 +28,8 @@ public class RegistrationController {
     @PostMapping(reistrationPage)
     public String addUser(User user, Map<String, Object> model){
         User userName = userRepository.findByUsername(user.getUsername());
-        User userEmail = userRepository.findByUsername(user.getEmail());
-        if(userName != null && userEmail != null){
-            model.put("message", "Username exists or Email exists!");
+        if(userName != null){
+            model.put("message", "Username exists!");
             return "registration";
         }
 //   User Generator

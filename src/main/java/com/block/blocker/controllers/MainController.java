@@ -1,6 +1,6 @@
 package com.block.blocker.controllers;
 
-import com.block.blocker.repositories.ShowedUsersRepository;
+
 import com.block.blocker.models.User;
 import com.block.blocker.repositories.UserReposiroty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +19,8 @@ public class MainController {
 
     @Autowired
     private UserReposiroty uRep;
-    @Autowired
-    private ShowedUsersRepository sURep;
+
+
 
 
 
@@ -35,9 +35,9 @@ public class MainController {
 
         boolean currentUserDisabled = false;
 
+// кнопки + ссылки на разные контроллеры
+        for (String retval : id) {
 
-        for (String retval : id)
-            if (uRep.findById(Long.parseLong(retval)).isPresent()) {
                 userFromDB = uRep.findById(Long.parseLong(retval)).get();
                 if (event.equals("Acеive/Diactive")) {
                     blockUnblock(userFromDB);
@@ -47,10 +47,10 @@ public class MainController {
                     if (currentUserIsDeleted(userFromDB, currentUser)) currentUserDisabled = true;
                 }
 
-                uRep.save(userFromDB);
-            }
 
 
+
+        }
 
 
         Iterable<User> users = uRep.findAll();
@@ -94,8 +94,9 @@ public class MainController {
             userFromDB.setBlock(false);
         } else {
             userFromDB.setBlock(true);
-
         }
+        uRep.save(userFromDB);
+
     }
 
     private boolean currentUserIsBanned(User userFromDB, Authentication currentUser){
