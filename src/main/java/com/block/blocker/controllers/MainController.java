@@ -43,9 +43,11 @@ public class MainController {
         users = uRep.findAll();
         model.put("currentUser", currentUser.getName());
         model.put("users", users);
+        User qe;
+        qe=uRep.findByUsername(currentUser.getName());
 
 
-        if (!currentUser.isAuthenticated()) {
+        if (!currentUser.isAuthenticated() || !qe.getBlock()) {
             return "redirect:/login?logout";
         }
         return "main";
@@ -53,10 +55,21 @@ public class MainController {
 
 
     @PostMapping()
-    public String showUsers(Map<String, Object> model) {
+    public String showUsers(Map<String, Object> model, User user) {
         Iterable<User> users = uRep.findAll();
-        model.put("users", users);
-        return "redirect:/users";
+        Authentication cures = SecurityContextHolder.getContext().getAuthentication();
+        User qe;
+        qe = uRep.findByUsername(cures.getName());
+
+        if(qe.getBlock()){
+            model.put("users", users);
+            return "redirect:/users";
+        }
+        else {
+            return "redirect:/login?logout";
+        }
+
+
     }
 
 
