@@ -13,68 +13,37 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.jws.soap.SOAPBinding;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 public class MainController {
+
+
 
     @Autowired
     private UserReposiroty uRep;
 
 
-
-
-
     @GetMapping()
-    public String userManager(@RequestParam(name = "event", required = false, defaultValue = "") String event,
-                           @RequestParam(name = "id", required = false, defaultValue = "") String[] id,
-                           Map<String, Object> model,
-                           User user) {
-
+    public String userManager(Map<String, Object> model) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-        User userFromDB;
-
-        for (String oneOfChanged : id) {
-                userFromDB = uRep.findById(Long.parseLong(oneOfChanged)).get();
-            deleteAndChangeUserStatus(event, userFromDB, currentUser);
-        }
-
-
-        Iterable<User> users = uRep.findAll();
-        users = uRep.findAll();
         model.put("currentUser", currentUser.getName());
-        model.put("users", users);
-        User qe;
-        qe=uRep.findByUsername(currentUser.getName());
-
-
-        if (!currentUser.isAuthenticated() || !qe.getBlock()) {
-            return "redirect:/login?logout";
-        }
         return "main";
     }
 
-
-    @PostMapping()
-    public String showUsers(Map<String, Object> model, User user) {
-        Iterable<User> users = uRep.findAll();
-        Authentication cures = SecurityContextHolder.getContext().getAuthentication();
-        User qe;
-        qe = uRep.findByUsername(cures.getName());
-
-        if(qe.getBlock()){
-            model.put("users", users);
-            return "redirect:/users";
-        }
-        else {
-            return "redirect:/login?logout";
-        }
-
-
+    @PostMapping("/story")
+    public String story(Map<String, Object> model, @RequestParam(name = "req", required = false, defaultValue = "") String req){
+        System.out.println(req);
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        model.put("currentUser", currentUser.getName());
+        return "redirect:/";
     }
 
 
-    // Manager
 
+
+
+    // Manager
 
 
 

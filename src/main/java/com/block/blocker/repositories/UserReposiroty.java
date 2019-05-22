@@ -2,9 +2,12 @@ package com.block.blocker.repositories;
 
 import com.block.blocker.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
-public interface UserReposiroty extends JpaRepository<User, Long> {
+import java.util.Optional;
+
+public interface UserReposiroty extends CrudRepository<User, Long> {
     User findByUsername(String name);
-    User findById(Integer id);
+    Optional<User> findByEmail(String email);
 
 }
