@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security Example </title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<div class="container asdw ">
+    <h1 class="Display-3" >Add new Story</h1>
+    <br>
+
+
+<a href="/createComposition" class="btn btn-primary" >Create</a>
+
+    <br>
+    <br>
+    <h1>My Stories</h1>
+
+    <br>
+
+
+    {{#comps}}
+        <div class="card mb-2 shadow-sm">
+            <div class="card-header">
+                <div class="row d-flex align-items-center" >
+                    <h3><span class="badge badge-secondary mr-2">Title :</span></h3><h5> {{title}}</h5>
+                </div>
+            </div>
+            <div class="card-header">
+                <div class="row d-flex align-items-center" >
+                    <h4><span class="badge badge-info mr-2">Ganre :</span></h4><h5 class=""> Harry Potter</h5>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">{{description}}</p>
+                <p class="card-text"><small class="text-muted">Wirtten by {{#author}}{{username}}{{/author}}</small></p>
+                <div class="d-flex justify-content-between">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Actions
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="#">Edit</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Delete</a>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary">
+                        Like  <span class="badge badge-light">9</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {{/comps}}
+</div>
+</body>
+</html>

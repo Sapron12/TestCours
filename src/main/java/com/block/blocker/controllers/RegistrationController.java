@@ -33,17 +33,17 @@ public class RegistrationController {
             return "registration";
         }
 //   User Generator
-//        for(Integer i = 0; i<14; i++){
-//
-//                        User us = new User("User"+i.toString(),"123",i.toString()+"post@mail.com");
-//                        us.setRoles(Collections.singleton(Role.USER));
-//                        us.setBlock(true);
-//                        userRepository.save(us);
-//        }
+        for(Integer i = 0; i<14; i++){
 
-            user.setBlock(true);
-            user.setRoles(Collections.singleton(Role.USER));
-            userRepository.save(user);
+                        User us = new User("User"+i.toString(),"123",i.toString()+"post@mail.com");
+                        us.setRoles(Collections.singleton(Role.USER));
+                        us.setBlock(true);
+                        userRepository.save(us);
+        }
+
+//            user.setBlock(true);
+//            user.setRoles(Collections.singleton(Role.USER));
+//            userRepository.save(user);
 
         return "redirect:/login";
     }

@@ -1,43 +1,44 @@
 package com.block.blocker.controllers;
 
 
+import com.block.blocker.models.Chapter;
+import com.block.blocker.models.Composition;
 import com.block.blocker.models.User;
+import com.block.blocker.repositories.ChapterRepository;
+import com.block.blocker.repositories.CompositionRepository;
 import com.block.blocker.repositories.UserReposiroty;
+import com.sun.deploy.util.StringUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.jws.soap.SOAPBinding;
-import java.util.Map;
-import java.util.Optional;
+import javax.servlet.http.HttpSession;
+import javax.swing.*;
+import java.util.*;
 
 @Controller
 public class MainController {
 
 
 
-    @Autowired
-    private UserReposiroty uRep;
-
-
     @GetMapping()
     public String userManager(Map<String, Object> model) {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+
+
+
         model.put("currentUser", currentUser.getName());
         return "main";
     }
 
-    @PostMapping("/story")
-    public String story(Map<String, Object> model, @RequestParam(name = "req", required = false, defaultValue = "") String req){
-        System.out.println(req);
-        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
-        model.put("currentUser", currentUser.getName());
-        return "redirect:/";
-    }
 
 
 
@@ -49,7 +50,7 @@ public class MainController {
 
 
     private void delete(User userFromDB) {
-        uRep.delete(userFromDB);
+//        uRep.delete(userFromDB);
 
     }
 
@@ -63,7 +64,7 @@ public class MainController {
         } else {
             userFromDB.setBlock(true);
         }
-        uRep.save(userFromDB);
+//        uRep.save(userFromDB);
 
     }
 

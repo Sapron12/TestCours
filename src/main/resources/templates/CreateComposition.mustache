@@ -46,9 +46,16 @@
 <div class="container">
 
 
-<br>
+    <br>
 
-<h1  inline="text">It Is Main Page</h1>
+    <h1  inline="text">Create your oun Story!</h1>
+
+    <form action="/createNewStory" method="post">
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+     <label>Title </label>   <input type="text" name="title">
+        <label>Description </label><textarea name="description">Description of your story</textarea>
+        <input type="submit" value="Create">
+    </form>
 
 
 </div>
