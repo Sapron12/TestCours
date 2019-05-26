@@ -36,8 +36,18 @@ public class ChapterController {
         Chapter chapter = new Chapter(title, chapterText,composition);
         cRep.save(chapter);
         return "redirect:/userPage";
+
     }
 
+    @GetMapping("/{composition}/chapters")
+    public String showChapters(@PathVariable Composition composition, Map<String, Object> model){
+
+        Iterable<Chapter> chapters = cRep.findAllByCompositionOrderByIdDesc(composition);
+        model.put("chapter", chapters);
+
+        return "chapter/chapters";
+
+    }
 
 
 }
