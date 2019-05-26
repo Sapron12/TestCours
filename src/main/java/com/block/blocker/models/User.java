@@ -14,7 +14,7 @@ public class User {
 
     private String password;
 
-    private Boolean block;
+    private Boolean block = false;
 
     private String email;
 

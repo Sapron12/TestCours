@@ -13,8 +13,14 @@ public class Chapter {
 
     private String chapterTitle;
 
+
+
     @Column(columnDefinition = "TEXT")
     private String text;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "composition_id")
+    private Composition composition;
 
     public Long getId() {
         return id;
@@ -22,6 +28,12 @@ public class Chapter {
 
     public Chapter() {
 
+    }
+
+    public Chapter(String chapterTitle, String text, Composition composition) {
+        this.chapterTitle = chapterTitle;
+        this.text = text;
+        this.composition = composition;
     }
 
     public void setId(Long id) {

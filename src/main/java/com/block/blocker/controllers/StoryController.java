@@ -3,6 +3,7 @@ package com.block.blocker.controllers;
 
 import com.block.blocker.models.Chapter;
 import com.block.blocker.models.Composition;
+import com.block.blocker.models.User;
 import com.block.blocker.repositories.ChapterRepository;
 import com.block.blocker.repositories.CompositionRepository;
 import com.block.blocker.repositories.UserReposiroty;
@@ -44,13 +45,13 @@ public class StoryController {
     public String newStory(Map<String, Object> model){
         Iterable<Chapter> chaps = cRep.findAll();
         model.put("chaps", chaps);
-        return "newStory";
+        return "stories/newStory";
     }
     @GetMapping("/createComposition")
     public String NewComposition(Map<String, Object> model){
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         model.put("currentUser", currentUser.getName());
-        return "CreateComposition";
+        return "stories/CreateComposition";
     }
     @PostMapping("/createNewStory")
     public String addNewComposition(Map<String, Object> model,
@@ -59,12 +60,17 @@ public class StoryController {
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        Composition composition = new Composition(uRep.findByUsername(authentication.getName()));
+        User user = uRep.findByUsername(authentication.getName());
+        Composition composition = new Composition(user);
+
+
         composition.setDescription(description);
         composition.setTitle(title);
         compRep.save(composition);
 
-        return "redirect:/userPage";
+        return "redirect:/createChapter/"+composition.getId().toString();
     }
+
+
 
 }

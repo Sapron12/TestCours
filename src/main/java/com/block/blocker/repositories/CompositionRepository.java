@@ -8,5 +8,5 @@ import java.util.Set;
 
 public interface CompositionRepository extends CrudRepository<Composition, Long> {
 
-    Iterable<Composition> findAllByAuthor(User author);
+    Iterable<Composition> findAllByAuthorOrderByIdDesc(User author);
 }

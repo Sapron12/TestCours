@@ -9,8 +9,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import java.util.Map;
+
 @Controller
 public class UserController {
 
@@ -25,7 +25,9 @@ public class UserController {
         Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
         User user = uRep.findByUsername(currentUser.getName());
         Long userId =  user.getId();
-        Iterable<Composition> d = compRep.findAllByAuthor(user);
+        Iterable<Composition> d = compRep.findAllByAuthorOrderByIdDesc(user);
+
+
         model.put("comps", d);
         return "userPage";
     }
