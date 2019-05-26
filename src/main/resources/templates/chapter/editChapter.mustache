@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Spring Security Example </title>
+    <script src='https://cloud.tinymce.com/5/tinymce.min.js?apiKey=tepnqpchvki66k60ft4tsnrcuxu6su0fiwi17kv9h938iozn'></script>
+
+    <script>
+        tinymce.init({
+            selector: '#mytextarea',
+            toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent code'
+
+        });
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"></head>
+<body>
+<br>
+<br>
+<br>
+<br>
+
+<div class="container asdw ">
+    <h1 class="Display-3" >Create New Story</h1>
+    <form method="post" action="/editChapter/{{id}}" >
+        <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+        {{#chapter}}
+    <input type="text" name="title" value="{{chapterTitle}}">
+
+        <textarea name="chapterText" id="mytextarea">{{{text}}}</textarea>
+{{/chapter}}
+        <input type="submit">
+    </form>
+    <br>
+    <br>
+    <br>
+    <a href="/userPage">back to User Page</a>
+
+</div>
+</body>
+</html>
