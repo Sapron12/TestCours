@@ -19,6 +19,7 @@ public class ChapterController {
     @Autowired
     ChapterRepository cRep;
 
+
     @GetMapping("/createChapter/{composition}")
     public String writeChapter(@PathVariable Composition composition, Map<String, Object> model){
 
@@ -47,6 +48,32 @@ public class ChapterController {
 
         return "chapter/chapters";
 
+    }
+    @GetMapping("/editChapter/{chapter}")
+    public String editingChapter(@PathVariable Chapter chapter, Map<String, Object> model){
+
+        model.put("chapter", chapter);
+        model.put("id",chapter.getId());
+        return "chapter/editChapter";
+    }
+
+    @PostMapping("/editChapter/{chapter}")
+    public String editChapter(@PathVariable Chapter chapter, Map<String, Object> model,
+                              @RequestParam(name = "chapterText", required = false, defaultValue = "" ) String chapterText,
+                              @RequestParam(name = "title", required = false, defaultValue = "") String title){
+
+        chapter.setText(chapterText);
+        chapter.setChapterTitle(title);
+        cRep.save(chapter);
+
+
+        return "redirect:/"+chapter.getComposition().getId()+"/chapters";
+    }
+
+    @GetMapping("/deleteChapter/{chapter}")
+    public String deleteChapter(@PathVariable Chapter chapter, Map<String, Object> model){
+        cRep.delete(chapter);
+        return "redirect:/"+chapter.getComposition().getId()+"/chapters";
     }
 
 

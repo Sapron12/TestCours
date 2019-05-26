@@ -36,6 +36,14 @@ public class Chapter {
         this.composition = composition;
     }
 
+    public Composition getComposition() {
+        return composition;
+    }
+
+    public void setComposition(Composition composition) {
+        this.composition = composition;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
